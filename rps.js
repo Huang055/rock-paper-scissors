@@ -64,16 +64,26 @@ function playRound() {
     console.log(`The winner is: ${defineWinner()}`)
     /// output user and machine choices
     console.log(`User choice: ${convert(u)}\nMachine choice: ${convert(c)}`)
-    console.log(`----------`)
     /// output user and machine scores
     console.log(`User score: ${UserScore}\nMachine score: ${ComputerScore}`)
-    console.log(`----------`)
     /// output number of played rounds
-    console.log(`Rounds played: ${RoundsPlayed}`)   
+    console.log(`Rounds played: ${RoundsPlayed}`)
+    console.log(`----------\n----------\n----------`)
 }
 
 /// wrap functions in while loop and play game
 while (RoundsPlayed != 5) {
     playRound()
 }
+console.log(`!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!!!`)
 console.log(`Match ended!`)
+console.log(`Total rounds played: ${RoundsPlayed}`)
+if (UserScore > ComputerScore) {
+    console.log(`Winner: User`)
+} else if (UserScore < ComputerScore) {
+    console.log(`Winner: Computer`)
+} else {
+    console.log(`Winner: Draw`)
+}
+console.log(`User score: ${UserScore}\nMachine score: ${ComputerScore}`)
+
