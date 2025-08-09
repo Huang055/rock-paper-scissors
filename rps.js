@@ -61,7 +61,11 @@ function defineWinner() {
 }
 function playRound() {
     /// output a winner
-    console.log(`The winner is: ${defineWinner()}`)
+    let winner = defineWinner()
+
+    alert(`The winner is: ${winner}\nUser choice: ${convert(u)}\nMachine choice: ${convert(c)}\nUser score: ${UserScore}\nMachine score: ${ComputerScore}\nRounds played: ${RoundsPlayed}`)
+
+    console.log(`The winner is: ${winner}`)
     /// output user and machine choices
     console.log(`User choice: ${convert(u)}\nMachine choice: ${convert(c)}`)
     /// output user and machine scores
@@ -72,18 +76,24 @@ function playRound() {
 }
 
 /// wrap functions in while loop and play game
+
 while (RoundsPlayed != 5) {
     playRound()
 }
+
+if (UserScore > ComputerScore) {
+    winner = `User`
+} else if (UserScore < ComputerScore) {
+     winner = `Computer`
+} else {
+     winner = `Draw`
+}
+
+alert(`Match ended!\nWinner: ${winner}\nTotal rounds played: ${RoundsPlayed}\nUser score: ${UserScore}\nMachine score: ${ComputerScore}`)
+
 console.log(`!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!!!`)
 console.log(`Match ended!`)
+console.log(`Winner: ${winner}`)
 console.log(`Total rounds played: ${RoundsPlayed}`)
-if (UserScore > ComputerScore) {
-    console.log(`Winner: User`)
-} else if (UserScore < ComputerScore) {
-    console.log(`Winner: Computer`)
-} else {
-    console.log(`Winner: Draw`)
-}
 console.log(`User score: ${UserScore}\nMachine score: ${ComputerScore}`)
 
