@@ -1,40 +1,36 @@
-html {
-    height: 100%;
-}
+html,
 body {
+    height: 100%;
     margin: 0px;
-    height: 100%;
 }
-#rps-body {
+#header-body,
+#game-body,
+#rps-body,
+#footer-body {
     display: flex;
+}
+#header-body,
+#footer-body {
     background-color: #696969;
-    flex-direction: column;
-    justify-content:end;
-    align-items: center;
-    height: 100%;
-}
-
-#header-body {
-    display: flex;
     flex: 1 1 5%;
     max-height: 100px;
 }
+
+#rps-body {
+    background-color: #696969;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
 #game-body {
     background-color: #A9A9A9;
-    display: flex;
     flex: 1 1 80%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 100%;
-    gap: 20%;
+    gap: 5%;
 
-}
-#footer-body {
-    background-color: #696969;
-    display: flex;
-    flex: 1 1 5%;
-    max-height: 100px;
 }
 #score-image-body{
     width: 90%;

@@ -1,87 +1,76 @@
-// define init variable for the game
-let ComputerScore = 0,
-    UserScore = 0,
-    RoundsPlayed = 0
-let u,c
-let roundWinner
+// Variables
+const numRounds = 5;
+let computerScore = 0,
+    userScore = 0,
+    roundsPlayed = 0,
+    userChoice = 0,
+    computerChoice = 0,
+    roundWinner = ""
 
-let round_scr = document.querySelector("#round-score")
-let user_scr = document.querySelector("#user-score")
-let computer_scr = document.querySelector("#computer-score")
-const rock_btn = document.querySelector("#button-rock")
-const paper_btn = document.querySelector("#button-paper")
-const scissors_btn = document.querySelector("#button-scissors")
-const log_winner = document.querySelector(".log_winner")
-const log_userChoice = document.querySelector(".userChoice")
-const log_machineChoice = document.querySelector(".machineChoice")
+// DOM objects
+const roundScoreDOM = document.querySelector("#round-score")
+const userScoreDOM = document.querySelector("#user-score")
+const compuerScoreDOM = document.querySelector("#computer-score")
+const logWinnerDOM = document.querySelector(".log_winner")
+const logUserChoiceDOM = document.querySelector(".userChoice")
+const logMachineChoiceDOM = document.querySelector(".machineChoice")
+// DOM button objects
+const buttonRockDOM = document.querySelector("#button-rock")
+const buttonPaperDOM = document.querySelector("#button-paper")
+const buttonScissorsDOM = document.querySelector("#button-scissors")
 
-
-function convert(numChoice) {
-    if (numChoice == 0) {
+function convert(input) {
+    if (input == 0) {
         return "Rock"
-    } else if (numChoice == 1) {
+    } else if (input == 1) {
         return "Paper" 
-    } else if (numChoice == 2) {
+    } else if (input == 2) {
         return "Scissors"
     }
+}
+function defineWinner(userInput,computerInput) {
+    userChoice = userInput
+    computerChoice = computerInput
+    if (userChoice === computerChoice) {
+        roundWinner = "No winner"
+    } else if (userChoice == 0 && computerChoice == 1) {
+        computerScore++
+        roundWinner = "Computer"
+    } else if (userChoice == 0 && computerChoice == 2) {
+        userScore++
+        roundWinner = "User"
+    } else if (userChoice == 1 && computerChoice == 0) {
+        userScore++
+        roundWinner = "User"
+    } else if (userChoice == 1 && computerChoice == 2) {
+        computerScore++
+        roundWinner = "Computer"
+    } else if (userChoice == 2 && computerChoice == 0) {
+        computerScore++
+        roundWinner = "Computer"
+    } else if (userChoice == 2 && computerChoice == 1) {
+        userScore++
+        roundWinner = "User"}
 }
 function getComputerChoice() {
     return Math.floor(Math.random() * 3 )
 }
-function registerInput(userInput) {
-    u = userInput
-    c = getComputerChoice()
-}
-function defineWinner() {
-    if (u === 0 && c === 0) {
-        return "No winner"
-    } else if (u === 1 && c === 1) {
-        return "No winner"
-    } else if (u === 2 && c === 2) {
-        return "No winner"
-    } else if (u === 0 && c === 1) {
-        ComputerScore += 1
-        return "Computer"
-    } else if (u === 0 && c === 2) {
-        UserScore += 1
-        return "User"
-    } else if (u === 1 && c === 0) {
-        UserScore += 1
-        return "User"
-    } else if (u === 1 && c === 2) {
-        ComputerScore += 1
-        return "Computer"
-    } else if (u === 2 && c === 0) {
-        ComputerScore += 1
-        return "Computer"
-    } else if (u === 2 && c === 1) {
-        UserScore += 1
-        return "User"
-    }
-}
 function updateScore() {
-    RoundsPlayed += 1
-    round_scr.textContent = (`Round: ${RoundsPlayed}`)
-    user_scr.textContent = (`User: ${UserScore}`)
-    computer_scr.textContent = (`Computer: ${ComputerScore}`)
-}
-function updateLog() {
-    log_winner.textContent = `Winner: ${roundWinner}`
-    log_userChoice.textContent = `User choice: ${convert(u)}`
-    log_machineChoice.textContent = `Machine choice: ${convert(c)}`
-    
+    roundsPlayed += 1
 
+    roundScoreDOM.textContent = (`Round: ${roundsPlayed}`)
+    userScoreDOM.textContent = (`User: ${userScore}`)
+    compuerScoreDOM.textContent = (`Computer: ${computerScore}`)
+
+    logWinnerDOM.textContent = `Winner: ${roundWinner}`
+    logUserChoiceDOM.textContent = `User choice: ${convert(userChoice)}`
+    logMachineChoiceDOM.textContent = `Machine choice: ${convert(computerChoice)}`
 }
-function playRound(userInputBtn) {
-    registerInput(userInputBtn)
-    roundWinner = defineWinner()
-    updateScore()
-    updateLog()
- 
-    if (UserScore == 5 || ComputerScore == 5) {
-        if (UserScore > ComputerScore) {
+function endGame(){
+    if (userScore == numRounds || computerScore == numRounds) {
+        if (userScore > computerScore) {
             matchWinner = `User`
-        } else if (UserScore < ComputerScore) {
+        } else if (userScore < computerScore) {
             matchWinner = `Computer`
         } else {
             matchWinner = `Draw`
@@ -90,11 +79,14 @@ function playRound(userInputBtn) {
         window.location.reload();
     }
 }
-
-
-rock_btn.addEventListener("click", () => playRound(0))
-paper_btn.addEventListener("click", () => playRound(1))
-scissors_btn.addEventListener("click", () => playRound(2))
+function playRound(userInputBtn) {
+    defineWinner(userInputBtn, getComputerChoice())
+    updateScore()
+    endGame()
+}
+buttonRockDOM.addEventListener("click", () => playRound(0))
+buttonPaperDOM.addEventListener("click", () => playRound(1))
+buttonScissorsDOM.addEventListener("click", () => playRound(2))
 
 
 
