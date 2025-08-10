@@ -77,9 +77,9 @@ function playRound() {
 
 /// wrap functions in while loop and play game
 
-while (RoundsPlayed != 5) {
-    playRound()
-}
+// while (RoundsPlayed != 5) {
+//     playRound()
+// }
 
 if (UserScore > ComputerScore) {
     winner = `User`
