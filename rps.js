@@ -2,8 +2,20 @@
 let ComputerScore = 0,
     UserScore = 0,
     RoundsPlayed = 0
+let u,c
+let roundWinner
 
-/// function to convert numbers to human readable choices
+let round_scr = document.querySelector("#round-score")
+let user_scr = document.querySelector("#user-score")
+let computer_scr = document.querySelector("#computer-score")
+const rock_btn = document.querySelector("#button-rock")
+const paper_btn = document.querySelector("#button-paper")
+const scissors_btn = document.querySelector("#button-scissors")
+const log_winner = document.querySelector(".log_winner")
+const log_userChoice = document.querySelector(".userChoice")
+const log_machineChoice = document.querySelector(".machineChoice")
+
+
 function convert(numChoice) {
     if (numChoice == 0) {
         return "Rock"
@@ -13,25 +25,14 @@ function convert(numChoice) {
         return "Scissors"
     }
 }
-
-/// get machine choice with Math.random function
 function getComputerChoice() {
     return Math.floor(Math.random() * 3 )
 }
-/// output list of choices to user and ask user to pick one
-function getUserChoice() {
-    return Number( window.prompt("Choices:\n1 - Rock\n2 - Paper\n3 - Scissors") ) - 1
-    /// get user input and store it in var "userInput"
-}
-
-/// inspect choices and peek a winner
-let u,c
-function defineWinner() {
-    
-    u = getUserChoice()
+function registerInput(userInput) {
+    u = userInput
     c = getComputerChoice()
-    RoundsPlayed += 1
-
+}
+function defineWinner() {
     if (u === 0 && c === 0) {
         return "No winner"
     } else if (u === 1 && c === 1) {
@@ -57,43 +58,47 @@ function defineWinner() {
         UserScore += 1
         return "User"
     }
-    /// record a winning score
 }
-function playRound() {
-    /// output a winner
-    let winner = defineWinner()
+function updateScore() {
+    RoundsPlayed += 1
+    round_scr.textContent = (`Round: ${RoundsPlayed}`)
+    user_scr.textContent = (`User: ${UserScore}`)
+    computer_scr.textContent = (`Computer: ${ComputerScore}`)
+}
+function updateLog() {
+    log_winner.textContent = `Winner: ${roundWinner}`
+    log_userChoice.textContent = `User choice: ${convert(u)}`
+    log_machineChoice.textContent = `Machine choice: ${convert(c)}`
+    
 
-    alert(`The winner is: ${winner}\nUser choice: ${convert(u)}\nMachine choice: ${convert(c)}\nUser score: ${UserScore}\nMachine score: ${ComputerScore}\nRounds played: ${RoundsPlayed}`)
-
-    console.log(`The winner is: ${winner}`)
-    /// output user and machine choices
-    console.log(`User choice: ${convert(u)}\nMachine choice: ${convert(c)}`)
-    /// output user and machine scores
-    console.log(`User score: ${UserScore}\nMachine score: ${ComputerScore}`)
-    /// output number of played rounds
-    console.log(`Rounds played: ${RoundsPlayed}`)
-    console.log(`----------\n----------\n----------`)
+}
+function playRound(userInputBtn) {
+    registerInput(userInputBtn)
+    roundWinner = defineWinner()
+    updateScore()
+    updateLog()
+ 
+    if (UserScore == 5 || ComputerScore == 5) {
+        if (UserScore > ComputerScore) {
+            matchWinner = `User`
+        } else if (UserScore < ComputerScore) {
+            matchWinner = `Computer`
+        } else {
+            matchWinner = `Draw`
+        }
+        alert(`Match winner: ${matchWinner}`)
+        window.location.reload();
+    }
 }
 
-/// wrap functions in while loop and play game
 
-// while (RoundsPlayed != 5) {
-//     playRound()
-// }
+rock_btn.addEventListener("click", () => playRound(0))
+paper_btn.addEventListener("click", () => playRound(1))
+scissors_btn.addEventListener("click", () => playRound(2))
 
-if (UserScore > ComputerScore) {
-    winner = `User`
-} else if (UserScore < ComputerScore) {
-     winner = `Computer`
-} else {
-     winner = `Draw`
-}
 
-alert(`Match ended!\nWinner: ${winner}\nTotal rounds played: ${RoundsPlayed}\nUser score: ${UserScore}\nMachine score: ${ComputerScore}`)
 
-console.log(`!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!!!`)
-console.log(`Match ended!`)
-console.log(`Winner: ${winner}`)
-console.log(`Total rounds played: ${RoundsPlayed}`)
-console.log(`User score: ${UserScore}\nMachine score: ${ComputerScore}`)
+
+
+
 
